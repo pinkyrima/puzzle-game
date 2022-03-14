@@ -9,7 +9,7 @@ class MyTitle extends StatelessWidget {
     return Container(
       height: size.height*0.10,
       padding: EdgeInsets.all(5.0),
-      child: Text('Sliding Puzzle',style: TextStyle(
+      child: Text('Pinki\'s Puzzle',style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: size.height*0.05,
         color: Colors.white,

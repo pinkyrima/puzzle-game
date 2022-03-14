@@ -14,7 +14,6 @@ class Board extends StatefulWidget {
 
 class _BoardState extends State<Board> {
   //var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-  //ekhn dekhen ///ei errror ta sesra
   var numbers = [
     "0",
     'assets/images/image001.png',
@@ -56,12 +55,19 @@ class _BoardState extends State<Board> {
     return SafeArea(
         child: Container(
       height: size.height,
-      color: Colors.blue,
+     // color: Colors.blue,
+      decoration: const BoxDecoration(
+        image: const DecorationImage(
+          image: AssetImage('assets/images/R (1).gif',),fit: BoxFit.cover
+        ),
+      ),
       child: Column(
         children: [
+         //SizedBox(height: 50,),
           MyTitle(
             size: size,
           ),
+          const SizedBox(height: 20,),
           Grid(
             numbers: numbers,
             size: size,
@@ -84,19 +90,19 @@ class _BoardState extends State<Board> {
       isActive = true;
     }
     if (index - 1 >= 0 &&
-            numbers.indexOf(numbers[index - 1]) ==
-                numbers.indexOf(numbers.first) &&
+            numbers[index - 1] ==
+                "0" &&
             index % 4 != 0 ||
         index + 1 < 16 &&
-            numbers.indexOf(numbers[index + 1]) ==
-                numbers.indexOf(numbers.first) &&
+            numbers[index + 1] ==
+                "0" &&
             (index + 1) % 4 != 0 ||
         (index - 4 >= 0 &&
-                numbers.indexOf(numbers[index - 4]) ==
-                    numbers.indexOf(numbers.first) ||
+                numbers[index - 4] ==
+                    "0" ||
             (index + 4 < 16 &&
-                numbers.indexOf(numbers[index + 4]) ==
-                    numbers.indexOf(numbers.first)))) {
+                numbers[index + 4] ==
+                    "0"))) {
       setState(() {
         // numbers[numbers.indexOf(0)] = numbers[index];
         // numbers[index] = 0;
@@ -126,34 +132,44 @@ class _BoardState extends State<Board> {
     }
   }
 
-  //ekhanei change korar ase..aage number diye sort hoto..but image e number nai.. List ta map use korle valo hoto
   bool isSorted(List list) {
-    //TODO: check sub string getting only numbers
-    // 'assets/images/image001.png'
-    var prev = list.first;
-    int prevInt = 0;
-    if (!prev.toString().startsWith("0")) {
-      prevInt = int.parse(prev.toString().split("/").last.substring(5, 8));
-    }
-    setState(() {});
-    //TODO: remove after check
-    print(prevInt);
-    for (var i = 1; i < list.length - 1; i++) {
-      var next = list[i];
-      int nextInt = 0;
-      if (!next.toString().startsWith("0")) {
-        nextInt = int.parse(next.toString().split("/").last.substring(5, 8));
+    bool result = true;
+    int index = 1;
+
+    for(String s in list){
+      if(s.startsWith("0") && index ==16)
+        {
+
+        }
+      else if(!s.startsWith("0") && index !=16) {
+        if(index != int.parse(s
+            .toString()
+            .split("/")
+            .last
+            .substring(5, 8))){
+          result = false;
+          setState(() {
+
+          });
+        }
+        print(s
+            .toString()
+            .split("/")
+            .last
+            .substring(5, 8));
       }
+      else{
+        result = false;
+        setState(() {
 
-      setState(() {});
-      //TODO: remove after check
-      print(prevInt);
+        });
+      }
+      index++;
+      setState(() {
 
-      if (prevInt > nextInt) return false;
-      prev = next;
-      setState(() {});
+      });
     }
-    return true;
+    return result;
   }
 
   void checkWin() {

@@ -4,14 +4,11 @@ import 'grid_button.dart';
 
 class Grid extends StatelessWidget {
   var numbers;
-  //NIcher eta ki list?
-  //haa ,,shurute list diclim pore var e niye gec ,,list ta onno kahne
-  //Active list tay ektu edit kore
 
   var size;
   Function? clickGrid;
 
-  Grid({Key? key,  this.numbers, this.size, this.clickGrid}) : super(key: key);
+  Grid({Key? key, this.numbers, this.size, this.clickGrid}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,19 +20,25 @@ class Grid extends StatelessWidget {
         child: GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
-              mainAxisSpacing: 5,
-              crossAxisSpacing: 5
+              mainAxisSpacing: 1,
+              crossAxisSpacing: 1,
             ),
             itemCount: numbers.length,
             itemBuilder: (context, index) {
-              return numbers[index]!="0"? GridButton(image: numbers[index], click: () {
-                clickGrid!(index);
-              }, ):const SizedBox.shrink();
+              return numbers[index] != "0"
+                  ? GridButton(
+                      image: numbers[index],
+                      click: () {
+                        clickGrid!(index);
+                      },
+                    )
+                  : SizedBox.shrink(
+                      child: Container(
+                        color: Colors.white,
+                      ),
+                    );
             }),
       ),
     );
-    //ekhn dekhen//dekhso
-    //hmm.. win er logic ta te error adhtece  oita dekhi
-
   }
 }
